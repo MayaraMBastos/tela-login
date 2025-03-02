@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login } from "../services/authService";
+import { authLogin } from "../services/authService";
 
 function Login() {
   const [usuario, setUsuario] = useState("");
@@ -8,7 +8,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const data = await login(usuario, senha);
+      const data = await authLogin(usuario, senha);
       console.log("Usuário autenticado:", data);
       // Aqui você pode salvar o token no localStorage ou Context API
     } catch (error) {
