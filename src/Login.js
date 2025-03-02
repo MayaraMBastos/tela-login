@@ -9,16 +9,29 @@ function Login() {
         <div>
           <label htmlFor="usuario">
             <p>Usuario</p>
-            <input type="text" name="usuario" id="usuario" />
+            <input
+              type="text"
+              name="usuario"
+              id="usuario"
+              className="form-control"
+            />
           </label>
         </div>
         <div>
           <label htmlFor="senha">
             <p>Senha</p>
-            <input type="password" name="senha" id="senha" />
+            <input
+              type="password"
+              name="senha"
+              id="senha"
+              className="form-control"
+            />
           </label>
         </div>
-        <button type="submit" className="m-2">
+        <button
+          type="submit"
+          className="btn btn-secondary justify-content-center w-50 m-4"
+        >
           Entrar
         </button>
       </form>
