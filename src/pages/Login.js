@@ -1,4 +1,21 @@
+import React, { useState } from "react";
+import { login } from "../services/authService";
+
 function Login() {
+  const [usuario, setUsuario] = useState("");
+  const [senha, setsenha] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await login(usuario, senha);
+      console.log("Usuário autenticado:", data);
+      // Aqui você pode salvar o token no localStorage ou Context API
+    } catch (error) {
+      alert("Erro ao fazer login");
+    }
+  };
+
   return (
     <div>
       <form
@@ -21,7 +38,7 @@ function Login() {
           <label htmlFor="senha">
             <p>Senha</p>
             <input
-              type="password"
+              type="senha"
               name="senha"
               id="senha"
               className="form-control"
