@@ -1,11 +1,21 @@
-import api from "./api";
+const API_URL = "http://localhost:8080"; // Backend Spring Boot
 
-export async function authLogin(usuario, senha) {
-  try {
-    const response = await api.post("/login", { usuario, senha });
-    return response.data; // Retorna os dados da resposta (ex: token JWT)
-  } catch (error) {
-    console.error("Erro ao fazer login:", error);
-    throw error; // Relança o erro para ser tratado pelo componente que chamou a função
+const authLogin = async (usuario, senha) => {
+  const response = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ usuario: usuario, senha: senha }),
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao fazer login");
   }
-}
+
+  return await response.json();
+};
+
+// Aqui está a exportação correta:
+export default authLogin;

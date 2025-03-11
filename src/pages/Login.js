@@ -1,27 +1,36 @@
-import React, { useState } from "react";
-import { authLogin } from "../services/authService";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Certifique-se de que isso esteja aqui!
 
 function Login() {
   const [usuario, setUsuario] = useState("");
-  const [senha, setsenha] = useState("");
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate(); // Aqui estamos criando o hook de navegação
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const data = await authLogin(usuario, senha);
-      console.log("Usuário autenticado:", data);
-      // Aqui você pode salvar o token no localStorage ou Context API
-    } catch (error) {
-      alert("Erro ao fazer login");
+    e.preventDefault(); // Previne o comportamento padrão de envio do formulário
+
+    // Envia a requisição POST via fetch
+    const response = await fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usuario, senha }),
+    });
+
+    const data = await response.json();
+
+    if (data.redirectUrl) {
+      // Redireciona para a URL fornecida na resposta
+      navigate(data.redirectUrl); // Usa o hook `navigate` para redirecionar
+    } else {
+      alert(data.mensagem);
     }
   };
 
   return (
     <div>
       <form
-        action="/login"
-        method="POST"
         className="d-flex flex-column justify-content-center align-items-center"
+        onSubmit={handleLogin} // Chama handleLogin ao submeter o formulário
       >
         <div>
           <label htmlFor="usuario">
@@ -29,8 +38,10 @@ function Login() {
             <input
               type="text"
               name="usuario"
+              value={usuario}
               id="usuario"
               className="form-control"
+              onChange={(e) => setUsuario(e.target.value)}
             />
           </label>
         </div>
@@ -38,10 +49,12 @@ function Login() {
           <label htmlFor="senha">
             <p>Senha</p>
             <input
-              type="senha"
+              type="password" // Tipo correto de senha
               name="senha"
+              value={senha}
               id="senha"
               className="form-control"
+              onChange={(e) => setSenha(e.target.value)}
             />
           </label>
         </div>
