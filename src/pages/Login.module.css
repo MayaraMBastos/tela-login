@@ -1,0 +1,14 @@
+.container,
+.container input {
+  background-color: rgba(255, 255, 255, 0.15);
+  outline: none; /* Remove o contorno azul padrão */
+  transition: all 0.3s ease-in-out; /* Suaviza a transição */
+}
+
+.container input:hover {
+  background-color: rgba(61, 10, 48, 0.4);
+}
+
+.container input:focus {
+  background-color: transparent;
+}

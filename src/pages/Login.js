@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Certifique-se de que isso esteja aqui!
+import styles from "./Login.module.css";
 
 function Login() {
   const [usuario, setUsuario] = useState("");
@@ -27,9 +28,11 @@ function Login() {
   };
 
   return (
-    <div>
+    <div
+      className={` d-flex justify-content-center align-items-center h-50 w-25 p-5 rounded border-0 ${styles.container}`}
+    >
       <form
-        className="d-flex flex-column justify-content-center align-items-center"
+        className="d-flex flex-column align-items-center"
         onSubmit={handleLogin} // Chama handleLogin ao submeter o formulário
       >
         <div>
@@ -40,7 +43,7 @@ function Login() {
               name="usuario"
               value={usuario}
               id="usuario"
-              className="form-control"
+              className="form-control text-white border-0"
               onChange={(e) => setUsuario(e.target.value)}
             />
           </label>
@@ -53,15 +56,12 @@ function Login() {
               name="senha"
               value={senha}
               id="senha"
-              className="form-control"
+              className="form-control text-white border-0"
               onChange={(e) => setSenha(e.target.value)}
             />
           </label>
         </div>
-        <button
-          type="submit"
-          className="btn btn-secondary justify-content-center w-50 m-4"
-        >
+        <button type="submit" className="btn btn-secondary w-100 m-4 ">
           Entrar
         </button>
       </form>

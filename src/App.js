@@ -4,25 +4,15 @@ import Home from "./pages/Home"; // Importa o componente Home
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route
-          exact
-          path="/login"
-          element={
-            <Login className="d-flex justify-content-center align-items-center vh-100 " />
-          }
-        />
-        <Route path="/home" element={<Home />} />
-        <Route
-          exact
-          path="/"
-          element={
-            <Login className="d-flex justify-content-center align-items-center vh-100 " />
-          }
-        />
-      </Routes>
-    </Router>
+    <div className="d-flex justify-content-center align-items-center vh-100 text-white">
+      <Router>
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route exact path="/" element={<Login />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
