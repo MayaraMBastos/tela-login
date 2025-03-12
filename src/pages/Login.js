@@ -43,7 +43,7 @@ function Login() {
               name="usuario"
               value={usuario}
               id="usuario"
-              className="form-control text-white border-0"
+              className="form-control  mb-2 border-0"
               onChange={(e) => setUsuario(e.target.value)}
             />
           </label>
@@ -56,12 +56,12 @@ function Login() {
               name="senha"
               value={senha}
               id="senha"
-              className="form-control text-white border-0"
+              className="form-control  mb-2 border-0"
               onChange={(e) => setSenha(e.target.value)}
             />
           </label>
         </div>
-        <button type="submit" className="btn btn-secondary w-100 m-4 ">
+        <button type="submit" className={`btn btn-lg w-100 m-4 ${styles.btn}`}>
           Entrar
         </button>
       </form>

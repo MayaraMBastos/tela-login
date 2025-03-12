@@ -4,7 +4,7 @@ import Home from "./pages/Home"; // Importa o componente Home
 
 function App() {
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 text-white">
+    <div className="d-flex justify-content-center align-items-center vh-100 ">
       <Router>
         <Routes>
           <Route exact path="/login" element={<Login />} />

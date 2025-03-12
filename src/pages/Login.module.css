@@ -3,12 +3,28 @@
   background-color: rgba(255, 255, 255, 0.15);
   outline: none; /* Remove o contorno azul padrão */
   transition: all 0.3s ease-in-out; /* Suaviza a transição */
+  color: #d8d5d5;
 }
 
 .container input:hover {
   background-color: rgba(61, 10, 48, 0.4);
+  color: #d8d5d5;
 }
 
 .container input:focus {
   background-color: transparent;
+  color: #d8d5d5;
+}
+
+.container p {
+  margin: 0, 1rem, 0, 0;
+}
+
+.container button {
+  background-color: rgb(59, 5, 75);
+  color: #d8d5d5;
+}
+
+.container button:hover {
+  background-color: rgba(29, 1, 22, 0.3);
 }
