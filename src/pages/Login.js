@@ -29,7 +29,7 @@ function Login() {
 
   return (
     <div
-      className={` d-flex justify-content-center align-items-center h-50 w-25 p-5 rounded border-0 ${styles.container}`}
+      className={` d-flex justify-content-center align-items-center h-auto w-auto p-5 rounded border-0 ${styles.container}`}
     >
       <form
         className="d-flex flex-column align-items-center"
