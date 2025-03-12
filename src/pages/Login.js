@@ -1,29 +1,46 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Certifique-se de que isso esteja aqui!
 import styles from "./Login.module.css";
+import { validarLogin } from "../services/authService";
 
 function Login() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
-  const navigate = useNavigate(); // Aqui estamos criando o hook de navegação
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); // Hook de navegação
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Previne o comportamento padrão de envio do formulário
+    e.preventDefault();
 
-    // Envia a requisição POST via fetch
-    const response = await fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ usuario, senha }),
-    });
+    // Valida os dados antes de enviar
+    const validation = validarLogin({ usuario, senha });
 
-    const data = await response.json();
+    if (!validation.success) {
+      // Captura os erros e exibe
+      const fieldErrors = validation.error.format();
+      setErrors(fieldErrors);
+      return;
+    }
 
-    if (data.redirectUrl) {
-      // Redireciona para a URL fornecida na resposta
-      navigate(data.redirectUrl); // Usa o hook `navigate` para redirecionar
-    } else {
-      alert(data.mensagem);
+    setErrors({}); // Se não houver erros, limpa
+
+    try {
+      const response = await fetch("http://localhost:8080/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario, senha }),
+      });
+
+      const data = await response.json();
+
+      if (data.redirectUrl) {
+        navigate(data.redirectUrl); // Redireciona
+        alert(data.mensagem);
+      } else {
+        alert(data.mensagem);
+      }
+    } catch (error) {
+      alert("Erro ao conectar ao servidor");
     }
   };
 
@@ -37,7 +54,7 @@ function Login() {
       >
         <div>
           <label htmlFor="usuario">
-            <p>Usuario</p>
+            <p className="mb-2">Usuario</p>
             <input
               type="text"
               name="usuario"
@@ -47,10 +64,11 @@ function Login() {
               onChange={(e) => setUsuario(e.target.value)}
             />
           </label>
+          {errors.usuario && <p>{errors.usuario._errors[0]}</p>}
         </div>
         <div>
           <label htmlFor="senha">
-            <p>Senha</p>
+            <p className="mb-2">Senha</p>
             <input
               type="password" // Tipo correto de senha
               name="senha"
@@ -60,6 +78,7 @@ function Login() {
               onChange={(e) => setSenha(e.target.value)}
             />
           </label>
+          {errors.senha && <p>{errors.senha._errors[0]}</p>}
         </div>
         <button type="submit" className={`btn btn-lg w-100 m-4 ${styles.btn}`}>
           Entrar
