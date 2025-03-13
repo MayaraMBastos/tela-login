@@ -8,6 +8,7 @@ function Login() {
   const [senha, setSenha] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate(); // Hook de navegação
+  const [backendError, setBackendError] = useState(""); // Estado para erro do backend
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,9 +36,9 @@ function Login() {
 
       if (data.redirectUrl) {
         navigate(data.redirectUrl); // Redireciona
-        alert(data.mensagem);
+        setBackendError(data.mensagens); // Garante uma mensagem sempre
       } else {
-        alert(data.mensagem);
+        setBackendError(data.mensagens || "Erro desconhecido."); // Garante uma mensagem sempre
       }
     } catch (error) {
       alert("Erro ao conectar ao servidor");
@@ -64,7 +65,9 @@ function Login() {
               onChange={(e) => setUsuario(e.target.value)}
             />
           </label>
-          {errors.usuario && <p>{errors.usuario._errors[0]}</p>}
+          {errors.usuario && (
+            <p className="erroText">{errors.usuario._errors[0]}</p>
+          )}
         </div>
         <div>
           <label htmlFor="senha">
@@ -78,7 +81,11 @@ function Login() {
               onChange={(e) => setSenha(e.target.value)}
             />
           </label>
-          {errors.senha && <p>{errors.senha._errors[0]}</p>}
+          {errors.senha && (
+            <p className="erroText">{errors.senha._errors[0]}</p>
+          )}
+
+          {backendError && <p className="text-danger mt-2">{backendError}</p>}
         </div>
         <button type="submit" className={`btn btn-lg w-100 m-4 ${styles.btn}`}>
           Entrar

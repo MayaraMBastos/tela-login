@@ -15,3 +15,8 @@ h4 {
 
   color: #d8d5d5 !important;
 }
+
+.erroText {
+  color: #e95656 !important;
+  font-size: 0.8rem;
+}
