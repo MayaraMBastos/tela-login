@@ -19,4 +19,11 @@ h4 {
 .erroText {
   color: #e95656 !important;
   font-size: 0.8rem;
+  max-width: 100%; /* Garante que o texto não ultrapasse a div */
+  word-wrap: break-word; /* Quebra palavras muito longas */
+  overflow-wrap: break-word; /* Garante que a quebra funcione */
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.15);
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Certifique-se de que isso esteja aqui!
-import styles from "./Login.module.css";
+import styles from "./Input.module.css";
 import { validarLogin } from "../services/authService";
 
 function Login() {
@@ -24,6 +24,7 @@ function Login() {
     }
 
     setErrors({}); // Se não houver erros, limpa
+    setBackendError(""); // Limpa erros anteriores do backen
 
     try {
       const response = await fetch("http://localhost:8080/login", {
@@ -47,21 +48,21 @@ function Login() {
 
   return (
     <div
-      className={` d-flex justify-content-center align-items-center h-auto w-auto p-5 rounded border-0 ${styles.container}`}
+      className={` d-flex justify-content-center align-items-center h-60 w-25 max-w-25 p-5 rounded border-0 ${styles.container}`}
     >
       <form
-        className="d-flex flex-column align-items-center"
+        className="d-flex flex-column "
         onSubmit={handleLogin} // Chama handleLogin ao submeter o formulário
       >
         <div>
-          <label htmlFor="usuario">
+          <label htmlFor="usuario" className="w-100">
             <p className="mb-2">Usuario</p>
             <input
               type="text"
               name="usuario"
               value={usuario}
               id="usuario"
-              className="form-control  mb-2 border-0"
+              className="form-control w-100 mb-2 border-0"
               onChange={(e) => setUsuario(e.target.value)}
             />
           </label>
@@ -70,14 +71,14 @@ function Login() {
           )}
         </div>
         <div>
-          <label htmlFor="senha">
+          <label htmlFor="senha" className="w-100">
             <p className="mb-2">Senha</p>
             <input
               type="password" // Tipo correto de senha
               name="senha"
               value={senha}
               id="senha"
-              className="form-control  mb-2 border-0"
+              className="form-control w-100 mb-2 border-0"
               onChange={(e) => setSenha(e.target.value)}
             />
           </label>
@@ -85,9 +86,9 @@ function Login() {
             <p className="erroText">{errors.senha._errors[0]}</p>
           )}
 
-          {backendError && <p className="text-danger mt-2">{backendError}</p>}
+          {backendError && <p className="erroText">{backendError}</p>}
         </div>
-        <button type="submit" className={`btn btn-lg w-100 m-4 ${styles.btn}`}>
+        <button type="submit" className={`btn btn-lg w-100  ${styles.btn}`}>
           Entrar
         </button>
       </form>
